@@ -5,35 +5,35 @@
 ![.NET](https://img.shields.io/badge/.NET-4.8-purple)
 ![Platform](https://img.shields.io/badge/Platform-Windows-informational)
 
-**Code Editor** — это современный и удобный редактор кода, который сочетает в себе **минимализм, скорость и умные функции**.  
-С его помощью вы сможете комфортно писать на C#, Python, JavaScript и других языках, наслаждаясь стильным Fluent-дизайном и встроенным ИИ-автодополнением (BETA).  
+**Code Editor** is a modern and convenient code editor that combines **minimalism, speed, and smart features**.  
+With it, you can comfortably write in C#, Python, JavaScript, and other languages while enjoying a stylish Fluent-inspired design and built-in AI autocompletion (BETA).  
 
-👉 Лёгкий, быстрый и гибкий — мой редактор создан для тех, кто ценит простоту и красоту в работе.  
-
-![Wave](https://capsule-render.vercel.app/api?type=waving&color=0:1E1E2E,100:4B0082&height=100&section=footer)
-
-
-## ✨ Основные возможности  
-
-- 📂 **Открытие и редактирование файлов** — поддержка папок и одиночных файлов.  
-- 🎨 **Подсветка синтаксиса** для C#, HTML, CSS, XML, Python, JavaScript и др.  
-- 🗂 **Многовкладочный интерфейс** с прокруткой при переполнении.  
-- 🔍 **Поиск и замена** по файлам, папкам и коду.  
-- ⚡ **Настраиваемые темы и плагины** для персонализации.  
-- 📜 **История изменений** и откаты.  
-- 🤖 **Локальное и ИИ-автодополнение** (Beta).  
-- 🖥️ **Гибкий интерфейс** с акриловыми эффектами и Fluent-иконками.  
+👉 Lightweight, fast, and flexible — my editor is made for those who value simplicity and beauty in their workflow.  
 
 ![Wave](https://capsule-render.vercel.app/api?type=waving&color=0:1E1E2E,100:4B0082&height=100&section=footer)
 
-## 🎨 Дизайн и интерфейс  
 
-Я сделал акцент на **минимализме и эстетике**:  
-- 🌑 Тёмная тема снижает нагрузку на глаза.  
-- 🪟 Акрил и прозрачность в панелях.  
-- 🖋 Чёткие Fluent-иконки.  
-- 🎯 Интуитивное расположение панелей и вкладок.  
-- ✨ Плавные акценты и подсветки элементов.  
+## ✨ Key Features  
+
+- 📂 **Open and edit files** — supports folders and standalone files.  
+- 🎨 **Syntax highlighting** for C#, HTML, CSS, XML, Python, JavaScript, and more.  
+- 🗂 **Tabbed interface** with scrolling when tabs overflow.  
+- 🔍 **Search and replace** across files, folders, and code.  
+- ⚡ **Customizable themes and plugins** for personalization.  
+- 📜 **History and undo** for code changes.  
+- 🤖 **Local and AI-based autocompletion** (Beta).  
+- 🖥️ **Flexible UI** with acrylic effects and Fluent icons.  
+
+![Wave](https://capsule-render.vercel.app/api?type=waving&color=0:1E1E2E,100:4B0082&height=100&section=footer)
+
+## 🎨 Design & Interface  
+
+I focused on **minimalism and aesthetics**:  
+- 🌑 Dark theme to reduce eye strain.  
+- 🪟 Acrylic transparency in panels.  
+- 🖋 Crisp Fluent icons.  
+- 🎯 Intuitive panel and tab layout.  
+- ✨ Smooth accents and element highlights.  
 
 ![Main Interface](path/to/your/screenshot1.png)  
 ![Syntax Highlighting](path/to/your/screenshot2.png)  
@@ -43,45 +43,45 @@
 
 ![Roadmap](https://img.shields.io/badge/🚀_Roadmap-informational?style=for-the-badge&logo=github&color=1E90FF)
 
-- [x] Подсветка синтаксиса  
-- [x] Многовкладочный режим  
-- [ ] Плагины  
-- [ ] Поддержка Linux и macOS  
-- [ ] Полноценный ИИ-ассистент  
+- [x] Syntax highlighting  
+- [x] Tabbed mode  
+- [ ] Plugins  
+- [ ] Linux and macOS support  
+- [ ] Full AI assistant  
 
 ---
 
-## ⚖️ Почему Code Editor лучше?  
+## ⚖️ Why Code Editor is Better  
 
-| Функция              | Code Editor ✅ | VS Code ⚪ | Notepad++ ⚪ |
-|----------------------|----------------|------------|--------------|
-| Простота интерфейса  | ✅             | ⚪         | ⚪            |
-| Минимум зависимостей | ✅             | ⚪         | ✅            |
-| Fluent-дизайн        | ✅             | ⚪         | ⚪            |
+| Feature               | Code Editor ✅ | VS Code ⚪ | Notepad++ ⚪ |
+|-----------------------|----------------|------------|--------------|
+| Simple interface      | ✅             | ⚪         | ⚪            |
+| Minimal dependencies  | ✅             | ⚪         | ✅            |
+| Fluent design         | ✅             | ⚪         | ⚪            |
 
 ---
 
-## 📥 Установка  
+## 📥 Installation  
 
-### Требования  
+### Requirements  
 - Windows 7+  
 - .NET Framework 4.8  
-- Microsoft Edge WebView2 Runtime (для будущего предпросмотра web)  
+- Microsoft Edge WebView2 Runtime (for future web preview)  
 
-### Инструкции  
-1. Скачайте [последний релиз](https://github.com/ваш_пользователь/ваш_репозиторий/releases).  
-2. Распакуйте архив.  
-3. Запустите `CodeEditor.exe`.  
-4. Выберите проект или создайте новый файл.  
+### Instructions  
+1. Download the [latest release](https://github.com/your_user/your_repo/releases).  
+2. Extract the archive.  
+3. Run `CodeEditor.exe`.  
+4. Open a project or create a new file.  
 
 ---
 
-## 🛠 Использование  
+## 🛠 Usage  
 
-- **Редактирование** — вкладки, подсветка, история.  
-- **Поиск и замена** — мощный поиск по проекту.  
-- **Настройка** — темы и плагины.  
-- **Гибкость** — панели можно перемещать и скрывать.  
+- **Editing** — tabs, highlighting, history.  
+- **Search & Replace** — powerful project-wide search.  
+- **Customization** — themes and plugins.  
+- **Flexibility** — move and hide panels as needed.  
 
 ![Editor Screenshot](path/to/your/editor_screenshot.png)  
 ![Sidebar Screenshot](path/to/your/sidebar_screenshot.gif)  
@@ -89,21 +89,21 @@
 
 ---
 
-## 📚 Поддерживаемые языки  
+## 📚 Supported Languages  
 ![Languages](https://img.shields.io/badge/💻_Languages-20+-success?style=for-the-badge&logo=visual-studio-code&color=228B22)
 
-C#, HTML, CSS, XML, Python, JavaScript и многие другие!  
+C#, HTML, CSS, XML, Python, JavaScript, and many more!  
 
 ---
 
-## 🧩 Расширения  
+## 🧩 Extensions  
 
-- 🎨 Темы (светлая и тёмная).  
-- 🤖 ИИ-автодополнение (Beta, нужен API).  
+- 🎨 Themes (light and dark).  
+- 🤖 AI autocompletion (Beta, requires API).  
 
 ---
 
-## ⚙️ Технологии  
+## ⚙️ Technologies  
 
 - ICSharpCode.AvalonEdit  
 - FluentWPF  
@@ -112,17 +112,15 @@ C#, HTML, CSS, XML, Python, JavaScript и многие другие!
 
 ---
 
-
-## Контрибьютинг
-Я приветствую любые вклады! Если вы хотите добавить новые функции, исправить ошибки или улучшить документацию, то напишите мне по моим контактным данным. <br><br>
+## 🤝 Contributing
+Contributions are welcome! If you’d like to add new features, fix bugs, or improve documentation, please reach out using my contact info. <br><br>
 ![Contributors](https://contrib.rocks/image?repo=atocheniy/Code-Editor)
 
-## Контакты
-- **GitHub Issues**: [https://github.com/ваш_пользователь/ваш_репозиторий/issues](https://github.com/ваш_пользователь/ваш_репозиторий/issues)
-- **Email**: atochony@gmail.com
+## 📬 Contact
+- **GitHub Issues**: [https://github.com/your_user/your_repo/issues](https://github.com/your_user/your_repo/issues)  
+- **Email**: atochony@gmail.com  
 
-## Благодарности
-Спасибо сообществу open-source и разработчикам библиотек, которые сделали Code Editor возможным!
-
+## 🙏 Acknowledgements
+Thanks to the open-source community and library developers who made Code Editor possible!
 
 ![Footer](https://capsule-render.vercel.app/api?type=rect&color=gradient&height=30&section=footer)
