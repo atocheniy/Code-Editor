@@ -1,4 +1,4 @@
-![Code Editor](https://capsule-render.vercel.app/api?type=shark&color=0:1E1E2E,100:4B0082&height=100&section=header&text=Code%20Editor&fontColor=00FFEF&fontSize=45&animation=twinkling)
+![Code Editor](https://capsule-render.vercel.app/api?type=rounded&color=0:1E1E2E,100:4B0082&height=100&section=header&text=Code%20Editor&fontColor=00FFEF&fontSize=45&animation=fadeIn)
 
 [![Stars](https://img.shields.io/github/stars/atocheniy/Code-Editor?style=flat&color=yellow)](https://github.com/atocheniy/Code-Editor/stargazers)
 [![License](https://img.shields.io/github/license/atocheniy/Code-Editor?style=flat&color=blue)](LICENSE)
