@@ -134,7 +134,7 @@ Contributions are welcome! If you’d like to add new features, fix bugs, or imp
 ![Contributors](https://contrib.rocks/image?repo=atocheniy/Code-Editor)
 
 ## 📬 Contact
-- **GitHub Issues**: [https://github.com/your_user/your_repo/issues](https://github.com/your_user/your_repo/issues)  
+- **GitHub Issues**: [https://github.com/atocheniy/Code-Editor/issues](https://github.com/your_user/your_repo/issues)  
 - **Email**: atochony@gmail.com  
 
 ## 🙏 Acknowledgements
