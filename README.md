@@ -24,6 +24,8 @@ With it, you can comfortably write in C#, Python, JavaScript, and other language
 - 🤖 **Local and AI-based autocompletion** (Beta).  
 - 🖥️ **Flexible UI** with acrylic effects and Fluent icons.  
 
+![Main Interface](Images/img3.png)  
+
 ![Wave](https://capsule-render.vercel.app/api?type=waving&color=0:1E1E2E,100:4B0082&height=100&section=footer)
 
 ## 🎨 Design & Interface  
@@ -35,9 +37,24 @@ I focused on **minimalism and aesthetics**:
 - 🎯 Intuitive panel and tab layout.  
 - ✨ Smooth accents and element highlights.  
 
-![Main Interface](path/to/your/screenshot1.png)  
-![Syntax Highlighting](path/to/your/screenshot2.png)  
-![Search and Replace](path/to/your/screenshot3.gif)  
+![Main Interface](Images/img2.png) 
+
+<table>
+  <tr>
+    <td style="width: 300px; vertical-align: top; padding-right: 20px;">
+      <img src="Images/img4.png" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);" />
+    </td>
+    <td style="vertical-align: top; padding-left: 10px; font-size: 16px; line-height: 1.5;">
+      <strong>Clear Project Explorer</strong> — The left panel shows a structured and expandable file tree, making navigation across project files and folders intuitive. It supports multiple levels of nested directories. <br><br>
+      <em>Benefits:</em>
+      <ul>
+        <li>Expandable folders for better organization</li>
+        <li>Quick file search</li>
+        <li>Supports nested directories</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 ---
 
