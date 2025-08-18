@@ -86,7 +86,7 @@ I focused on **minimalism and aesthetics**:
 - Microsoft Edge WebView2 Runtime (for future web preview)  
 
 ### Instructions  
-1. Download the [latest release](https://github.com/your_user/your_repo/releases).  
+1. Download the [latest release](https://github.com/atocheniy/Code-Editor/releases).  
 2. Extract the archive.  
 3. Run `CodeEditor.exe`.  
 4. Open a project or create a new file.  
@@ -99,10 +99,6 @@ I focused on **minimalism and aesthetics**:
 - **Search & Replace** — powerful project-wide search.  
 - **Customization** — themes and plugins.  
 - **Flexibility** — move and hide panels as needed.  
-
-![Editor Screenshot](path/to/your/editor_screenshot.png)  
-![Sidebar Screenshot](path/to/your/sidebar_screenshot.gif)  
-![Status Bar Screenshot](path/to/your/statusbar_screenshot.png)  
 
 ---
 
@@ -134,7 +130,7 @@ Contributions are welcome! If you’d like to add new features, fix bugs, or imp
 ![Contributors](https://contrib.rocks/image?repo=atocheniy/Code-Editor)
 
 ## 📬 Contact
-- **GitHub Issues**: [https://github.com/atocheniy/Code-Editor/issues](https://github.com/your_user/your_repo/issues)  
+- **GitHub Issues**: [https://github.com/atocheniy/Code-Editor/issues](https://github.com/atocheniy/Code-Editor/issues)  
 - **Email**: atochony@gmail.com  
 
 ## 🙏 Acknowledgements
