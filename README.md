@@ -68,7 +68,7 @@ I focused on **minimalism and aesthetics**:
 
 ---
 
-## ⚖️ Why Code Editor is Better  
+## Why Code Editor is Better  
 
 | Feature               | Code Editor ✅ | VS Code ⚪ | Notepad++ ⚪ |
 |-----------------------|----------------|------------|--------------|
@@ -125,7 +125,7 @@ C#, HTML, CSS, XML, Python, JavaScript, and many more!
 
 ---
 
-## 🤝 Contributing
+## Contributing
 Contributions are welcome! If you’d like to add new features, fix bugs, or improve documentation, please reach out using my contact info. <br><br>
 ![Contributors](https://contrib.rocks/image?repo=atocheniy/Code-Editor)
 
@@ -133,7 +133,6 @@ Contributions are welcome! If you’d like to add new features, fix bugs, or imp
 - **GitHub Issues**: [https://github.com/atocheniy/Code-Editor/issues](https://github.com/atocheniy/Code-Editor/issues)  
 - **Email**: atochony@gmail.com  
 
-## 🙏 Acknowledgements
 Thanks to the open-source community and library developers who made Code Editor possible!
 
 ![Footer](https://capsule-render.vercel.app/api?type=rect&color=gradient&height=30&section=footer)
