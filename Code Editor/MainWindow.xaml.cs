@@ -51,7 +51,7 @@ namespace Code_Editor
     {
         //-----------------Modules----------------
         EffectBlur ef = null;
-        AI ai = new AI("");
+        AI ai = new AI("YOUR_API_KEY"); // Возможно будет не работать, я проверял последний раз полгода назад
         Functions func = new Functions();
         PlugInManager plugInManager;
         SaveLoad sl;
@@ -86,6 +86,8 @@ namespace Code_Editor
             appst.Setting = "0,3";
             appst.FontSize = 22;
             appst.IsLoaded = false;
+
+            if(!Directory.Exists("Plug-ins")) Directory.CreateDirectory("Plug-ins");
 
             plugInManager = new PlugInManager(this);
 
