@@ -91,7 +91,7 @@ I focused on **minimalism and aesthetics**:
 ## 📥 Installation  
 
 ### Requirements  
-- Windows 7+  
+- Windows 11  
 - .NET Framework 4.8  
 - Microsoft Edge WebView2 Runtime (for future web preview)  
 
