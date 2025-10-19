@@ -57,7 +57,7 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <NoWarn>$(NoWarn);NU1702</NoWarn>
     <EntryPointProjectUniqueName>..\Code Editor\Code Editor.csproj</EntryPointProjectUniqueName>
-    <PackageCertificateThumbprint>615028AE7DFFA0EFE69838F3584CEDDF3C18A70B</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>C82603089905A262CED320F03361D6B0C016E850</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
