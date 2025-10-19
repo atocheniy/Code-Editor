@@ -1,0 +1,62 @@
+﻿using ICSharpCode.AvalonEdit;
+using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Editing;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Completion;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace Code_Editor.Modules
+{
+
+    public class MyCompletionData : ICompletionData
+    {
+        public MyCompletionData(string text)
+        {
+            this.Text = text;
+        }
+
+        public System.Windows.Media.ImageSource Image
+        {
+            get { return null; }
+        }
+
+        public string Text { get; private set; }
+
+        // Use this property if you want to show a fancy UIElement in the list.
+        public object Content
+        {
+            get { return this.Text; }
+        }
+
+        public object Description
+        {
+            get { return "Description for " + this.Text; }
+        }
+
+        public double Priority => 0;
+        public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
+        {
+            var enteredChar = textArea.Document.GetCharAt(completionSegment.EndOffset - 1);
+
+            if (enteredChar != '.')
+            {
+                completionSegment = new TextSegment
+                {
+                    StartOffset = completionSegment.Offset - 1,
+                    EndOffset = completionSegment.EndOffset
+                };
+            }
+
+            textArea.Document.Replace(completionSegment, this.Text);
+        }
+    }
+}
