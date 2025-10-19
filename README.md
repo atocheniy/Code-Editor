@@ -1,17 +1,27 @@
-![Code Editor](https://capsule-render.vercel.app/api?type=rounded&color=0:1E1E2E,100:4B0082&height=100&section=header&text=Code%20Editor&fontColor=00FFEF&fontSize=45&animation=fadeIn)
+<div align="center">
+  <img src="Images/CodeEditor.png" alt="Logo" width="15%">
+  <br>
+  <br>
+  <img src="https://capsule-render.vercel.app/api?type=rounded&color=0:1E1E2E,100:4B0082&height=80&section=header&text=Code%20Editor&fontColor=00FFEF&fontSize=45&animation=fadeIn" alt="Code Editor Title">
+  <br>
+  <br>
+  <img src="https://img.shields.io/github/stars/atocheniy/Code-Editor?style=flat&color=yellow"> 
+  <img src="https://img.shields.io/github/license/atocheniy/Code-Editor?style=flat&color=blue"> 
+  <img src="https://img.shields.io/badge/.NET-4.8-purple"> 
+  <img src="https://img.shields.io/badge/Platform-Windows-informational"> 
+</div>
 
-[![Stars](https://img.shields.io/github/stars/atocheniy/Code-Editor?style=flat&color=yellow)](https://github.com/atocheniy/Code-Editor/stargazers)
-[![License](https://img.shields.io/github/license/atocheniy/Code-Editor?style=flat&color=blue)](LICENSE)
-![.NET](https://img.shields.io/badge/.NET-4.8-purple)
-![Platform](https://img.shields.io/badge/Platform-Windows-informational)
+<br>
 
-**Code Editor** is a modern and convenient code editor that combines **minimalism, speed, and smart features**.  
-With it, you can comfortably write in C#, Python, JavaScript, and other languages while enjoying a stylish Fluent-inspired design and built-in AI autocompletion (BETA).  
+<div align="center">
+  <strong>Code Editor</strong> is a modern and convenient code editor that combines <strong>minimalism, speed, and smart features</strong>.  
+  With it, you can comfortably write in C#, Python, JavaScript, and other languages while enjoying a stylish Fluent-inspired design and built-in AI autocompletion (BETA).  
+  
+  👉 Lightweight, fast, and flexible — my editor is made for those who value simplicity and beauty in their workflow.  
 
-👉 Lightweight, fast, and flexible — my editor is made for those who value simplicity and beauty in their workflow.  
 
-![Wave](https://capsule-render.vercel.app/api?type=waving&color=0:1E1E2E,100:4B0082&height=100&section=footer)
-
+   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1E1E2E,100:4B0082&height=100&section=footer">
+</div>
 
 ## ✨ Key Features  
 
