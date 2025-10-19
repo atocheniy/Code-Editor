@@ -27,6 +27,9 @@ namespace Code_Editor.Modules
 
         Window w;
 
+        static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        static string myAppFolder = System.IO.Path.Combine(appDataPath, "CodeEditor");
+
         public SaveLoad(Window w, TreeView treeView, Grid grid, AppState appst, List<TabControlModel> Models, TreeViewPath tvp)
         {
             this.w = w;
@@ -42,8 +45,8 @@ namespace Code_Editor.Modules
             tvp.expandedPaths.Clear();
             tvp.selectedPath = null;
             SaveTreeViewState(ViewXMLTags);
-            File.WriteAllLines("expanded.txt", tvp.expandedPaths);
-            File.WriteAllText("selected.txt", tvp.selectedPath ?? "");
+            File.WriteAllLines(myAppFolder + "\\" + "expanded.txt", tvp.expandedPaths);
+            File.WriteAllText(myAppFolder + "\\" + "selected.txt", tvp.selectedPath ?? "");
 
 
             XmlSerializer xs = new XmlSerializer(typeof(SaveTabs));
@@ -52,7 +55,7 @@ namespace Code_Editor.Modules
             st.tabCModels = tabCModels;
             st.current_path = appst.CurrentFolder;
 
-            using (FileStream fs = new FileStream("data.xml", FileMode.Create, FileAccess.Write, FileShare.None)) xs.Serialize(fs, st);
+            using (FileStream fs = new FileStream(myAppFolder + "\\" + "data.xml", FileMode.Create, FileAccess.Write, FileShare.None)) xs.Serialize(fs, st);
 
             XmlSerializer xs2 = new XmlSerializer(typeof(Classes.Settings));
 
@@ -65,7 +68,7 @@ namespace Code_Editor.Modules
             s.FontSize = appst.FontSize;
             s.CurrentTheme = appst.CurrentTheme;
 
-            using (FileStream fs = new FileStream("settings.xml", FileMode.Create, FileAccess.Write, FileShare.None)) xs2.Serialize(fs, s);
+            using (FileStream fs = new FileStream(myAppFolder + "\\" + "settings.xml", FileMode.Create, FileAccess.Write, FileShare.None)) xs2.Serialize(fs, s);
         }
 
         public void Load(Label PathFile, Action<int> CreateControl, Action<TreeView, TabControlModel, List<TabControlModel>, TabItemModel, Label, string, bool> CreateTab, 
@@ -75,14 +78,14 @@ namespace Code_Editor.Modules
 
             try
             {
-                if (File.Exists("data.xml"))
+                if (File.Exists(myAppFolder + "\\" + "data.xml"))
                 {
-                    FileInfo fi = new FileInfo("data.xml");
+                    FileInfo fi = new FileInfo(myAppFolder + "\\" + "data.xml");
                     if (fi.Length > 0)
                     {
                         XmlSerializer xs = new XmlSerializer(typeof(SaveTabs));
 
-                        Stream fstream = File.OpenRead("data.xml");
+                        Stream fstream = File.OpenRead(myAppFolder + "\\" + "data.xml");
                         st = (SaveTabs)xs.Deserialize(fstream);
                         fstream.Close();
 
@@ -114,7 +117,7 @@ namespace Code_Editor.Modules
                 }
                 else
                 {
-                    using (var fs = File.Create("data.xml"))
+                    using (var fs = File.Create(myAppFolder + "\\" + "data.xml"))
                     using (var writer = new StreamWriter(fs))
                     {
                         writer.WriteLine("<SaveTabs></SaveTabs>");
@@ -125,11 +128,11 @@ namespace Code_Editor.Modules
 
             try
             {
-                if (File.Exists("settings.xml"))
+                if (File.Exists(myAppFolder + "\\" + "settings.xml"))
                 {
                     XmlSerializer xs2 = new XmlSerializer(typeof(Classes.Settings));
 
-                    Stream fstream2 = File.OpenRead("settings.xml");
+                    Stream fstream2 = File.OpenRead(myAppFolder + "\\" + "settings.xml");
                     Classes.Settings s = (Classes.Settings)xs2.Deserialize(fstream2);
                     fstream2.Close();
 
@@ -169,7 +172,7 @@ namespace Code_Editor.Modules
                 }
                 else
                 {
-                    using (var fs = File.Create("settings.xml"))
+                    using (var fs = File.Create(myAppFolder + "\\" + "settings.xml"))
                     using (var writer = new StreamWriter(fs))
                     {
                         writer.WriteLine("<Settings></Settings>");
@@ -187,7 +190,7 @@ namespace Code_Editor.Modules
             if (CommonFileDialog.IsPlatformSupported)
             {
                 var dialog = new CommonOpenFileDialog();
-                dialog.InitialDirectory = @"C:\XML";
+                dialog.InitialDirectory = @"C:\";
                 dialog.IsFolderPicker = true;
                 CommonFileDialogResult result = dialog.ShowDialog();
 
@@ -273,8 +276,8 @@ namespace Code_Editor.Modules
 
         public void RestoreTreeViewState(ItemsControl parent, string currentPath = "")
         {
-            List<string> expandedPaths = File.Exists("expanded.txt") ? File.ReadAllLines("expanded.txt").ToList() : new List<string>();
-            string selectedPath = File.Exists("selected.txt") ? File.ReadAllText("selected.txt") : "";
+            List<string> expandedPaths = File.Exists(myAppFolder + "\\" + "expanded.txt") ? File.ReadAllLines(myAppFolder + "\\" + "expanded.txt").ToList() : new List<string>();
+            string selectedPath = File.Exists(myAppFolder + "\\" + "selected.txt") ? File.ReadAllText(myAppFolder + "\\" + "selected.txt") : "";
 
             foreach (var item in parent.Items)
             {

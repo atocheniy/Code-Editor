@@ -30,6 +30,9 @@ namespace Examination_SP
             MainWindow = mainWindow;
         }
 
+        static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        static string myAppFolder = System.IO.Path.Combine(appDataPath, "CodeEditor");
+
         /// <summary>
         /// Метод проверят, авляется ли файл, заданный полным путём, плагином нашей системы
         /// </summary>
@@ -106,7 +109,7 @@ namespace Examination_SP
             String baseDirectoryPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
             // Получить объект DirectoryInfo для папки Plug-ins
-            DirectoryInfo dinfo = new DirectoryInfo(baseDirectoryPath + @"Plug-ins");
+            DirectoryInfo dinfo = new DirectoryInfo(myAppFolder + "\\" + "Plug-ins");
 
             // Получить массив файлов в текущей папке
             FileInfo[] files = dinfo.GetFiles("*.dll");

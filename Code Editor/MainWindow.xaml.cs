@@ -69,6 +69,9 @@ namespace Code_Editor
         //--------------Список всех TabControl------------------------
         List<TabControlModel> tabCModels = new List<TabControlModel>();
 
+        static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        static string myAppFolder = System.IO.Path.Combine(appDataPath, "CodeEditor");
+
         public MainWindow()
         {
             try
@@ -81,13 +84,14 @@ namespace Code_Editor
                 System.Windows.MessageBox.Show(ex.ToString());
                 throw;
             }
+            Directory.CreateDirectory(myAppFolder);
             appst.CurrentTheme = "dark";
             appst.CurrentFolder = "";
             appst.Setting = "0,3";
             appst.FontSize = 22;
             appst.IsLoaded = false;
 
-            if(!Directory.Exists("Plug-ins")) Directory.CreateDirectory("Plug-ins");
+            Directory.CreateDirectory(myAppFolder + "\\Plug-ins");
 
             plugInManager = new PlugInManager(this);
 
@@ -731,8 +735,8 @@ namespace Code_Editor
                     tvp.expandedPaths.Clear();
                     tvp.selectedPath = null;
                     sl.SaveTreeViewState(ViewXMLTags);
-                    File.WriteAllLines("expanded.txt", tvp.expandedPaths);
-                    File.WriteAllText("selected.txt", tvp.selectedPath ?? "");
+                    File.WriteAllLines(myAppFolder + "\\" + "expanded.txt", tvp.expandedPaths);
+                    File.WriteAllText(myAppFolder + "\\" + "selected.txt", tvp.selectedPath ?? "");
 
                     if (isCreate)
                     {
@@ -1184,8 +1188,8 @@ namespace Code_Editor
             tvp.expandedPaths.Clear();
             tvp.selectedPath = null;
             sl.SaveTreeViewState(ViewXMLTags);
-            File.WriteAllLines("expanded.txt", tvp.expandedPaths);
-            File.WriteAllText("selected.txt", tvp.selectedPath ?? "");
+            File.WriteAllLines(myAppFolder + "\\" + "expanded.txt", tvp.expandedPaths);
+            File.WriteAllText(myAppFolder + "\\" + "selected.txt", tvp.selectedPath ?? "");
 
             if (ThemesComboBox.SelectedIndex == 0)
             {
@@ -1303,8 +1307,8 @@ namespace Code_Editor
                             tvp.expandedPaths.Clear();
                             tvp.selectedPath = null;
                             sl.SaveTreeViewState(ViewXMLTags);
-                            File.WriteAllLines("expanded.txt", tvp.expandedPaths);
-                            File.WriteAllText("selected.txt", tvp.selectedPath ?? "");
+                            File.WriteAllLines(myAppFolder + "\\" + "expanded.txt", tvp.expandedPaths);
+                            File.WriteAllText(myAppFolder + "\\" + "selected.txt", tvp.selectedPath ?? "");
 
                             if (File.Exists(sourceFilePath))
                             {

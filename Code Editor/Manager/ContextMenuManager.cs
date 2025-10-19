@@ -25,6 +25,9 @@ namespace Code_Editor.Manager
         TreeView ViewXMLTags;
         Window w;
 
+        static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        static string myAppFolder = System.IO.Path.Combine(appDataPath, "CodeEditor");
+
         public ContextMenuManager(AppState appst, List<TabControlModel> Models, TreeViewPath tvp, TreeView ViewXMLTags, SaveLoad sl, Window w)
         {
             this.appst = appst;
@@ -139,8 +142,8 @@ namespace Code_Editor.Manager
                         tvp.expandedPaths.Clear();
                         tvp.selectedPath = null;
                         sl.SaveTreeViewState(ViewXMLTags);
-                        File.WriteAllLines("expanded.txt", tvp.expandedPaths);
-                        File.WriteAllText("selected.txt", tvp.selectedPath ?? "");
+                        File.WriteAllLines(myAppFolder + "\\" + "expanded.txt", tvp.expandedPaths);
+                        File.WriteAllText(myAppFolder + "\\" + "selected.txt", tvp.selectedPath ?? "");
 
                         switch (operation)
                         {
