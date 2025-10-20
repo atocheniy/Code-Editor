@@ -91,15 +91,19 @@ I focused on **minimalism and aesthetics**:
 ## 📥 Installation  
 
 ### Requirements  
-- Windows 7+  
+- Windows 11  
 - .NET Framework 4.8  
 - Microsoft Edge WebView2 Runtime (for future web preview)  
 
 ### Instructions  
 1. Download the [latest release](https://github.com/atocheniy/Code-Editor/releases).  
-2. Extract the archive.  
-3. Run `CodeEditor.exe`.  
-4. Open a project or create a new file.  
+2. Run `CodeEditor.exe`.
+3. Open a project or create a new file.  
+#### OR
+**❗NEW❗** <br>
+1. Download the [latest release](https://github.com/atocheniy/Code-Editor/releases).  
+2. Run installer `CodeEditor.Installer_0.1.1.0_x86_x64.msixbundle` and apply certificate: `CodeEditor.Installer_0.1.1.0_x86_x64.cer`
+3. Open a project or create a new file.  
 
 ---
 
