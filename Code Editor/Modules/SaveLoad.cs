@@ -64,7 +64,7 @@ namespace Code_Editor.Modules
             s.ResolutionHeight = w.ActualHeight.ToString();
             s.SidebarColumnWidth = MainGrid.ColumnDefinitions[0].Width.Value.ToString();
             s.ContentColumnWidth = MainGrid.ColumnDefinitions[1].Width.IsStar ? MainGrid.ColumnDefinitions[1].Width.Value.ToString() + "*" : MainGrid.ColumnDefinitions[1].Width.Value.ToString();
-            s.OpacityTransparent = appst.Setting;
+            s.isBlur = appst.isBlur;
             s.FontSize = appst.FontSize;
             s.CurrentTheme = appst.CurrentTheme;
 
@@ -72,7 +72,7 @@ namespace Code_Editor.Modules
         }
 
         public void Load(Label PathFile, Action<int> CreateControl, Action<TreeView, TabControlModel, List<TabControlModel>, TabItemModel, Label, string, bool> CreateTab, 
-            TextBox FontConf, Slider SliderOpacity, Border SideBar, Border DockPanel, Border ContentPanel, Button SelectProjectButton)
+            TextBox FontConf, Border SideBar, Border DockPanel, Border ContentPanel, Button SelectProjectButton, CheckBox BlurToggle)
         {
             SaveTabs st = null;
 
@@ -160,15 +160,31 @@ namespace Code_Editor.Modules
                         MainGrid.ColumnDefinitions[1].Width = new GridLength(contentWidth, GridUnitType.Pixel);
                     }
 
-                    appst.Setting = s.OpacityTransparent;
-                    SliderOpacity.Value = double.Parse(appst.Setting);
+                    appst.isBlur = s.isBlur;
+                    // SliderOpacity.Value = double.Parse(appst.Setting);
 
-                    if (double.Parse(appst.Setting) >= 0.3) func.AnimateOpacity(SideBar, double.Parse(appst.Setting), appst.Setting);
-                    if (double.Parse(appst.Setting) >= 0.9) func.AnimateOpacity(DockPanel, double.Parse(appst.Setting), appst.Setting);
-                    if (double.Parse(appst.Setting) >= 0.95) func.AnimateOpacity(ContentPanel, double.Parse(appst.Setting), appst.Setting);
+                    if (appst.isBlur == true)
+                    {
+                        func.AnimateOpacity(SideBar, 0.4, null);
+                        func.AnimateOpacity(DockPanel, 0.9, null);
 
-                    if (double.Parse(appst.Setting) < 0.9) func.AnimateOpacity(DockPanel, 0.9, appst.Setting);
-                    if (double.Parse(appst.Setting) < 0.95) func.AnimateOpacity(ContentPanel, 0.95, appst.Setting);
+                        BlurToggle.IsChecked = true;
+                    }
+
+                    else if (appst.isBlur == false)
+                    {
+                        func.AnimateOpacity(SideBar, 1, null);
+                        func.AnimateOpacity(DockPanel, 1, null);
+
+                        BlurToggle.IsChecked = false;
+                    }
+
+                    // if (double.Parse(appst.Setting) >= 0.3) func.AnimateOpacity(SideBar, double.Parse(appst.Setting), appst.Setting);
+                    // if (double.Parse(appst.Setting) >= 0.9) func.AnimateOpacity(DockPanel, double.Parse(appst.Setting), appst.Setting);
+                    // if (double.Parse(appst.Setting) >= 0.95) func.AnimateOpacity(ContentPanel, double.Parse(appst.Setting), appst.Setting);
+
+                    // if (double.Parse(appst.Setting) < 0.9) func.AnimateOpacity(DockPanel, 0.9, appst.Setting);
+                    // if (double.Parse(appst.Setting) < 0.95) func.AnimateOpacity(ContentPanel, 0.95, appst.Setting);
                 }
                 else
                 {

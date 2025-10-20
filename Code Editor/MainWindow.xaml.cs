@@ -87,8 +87,9 @@ namespace Code_Editor
             Directory.CreateDirectory(myAppFolder);
             appst.CurrentTheme = "dark";
             appst.CurrentFolder = "";
-            appst.Setting = "0,3";
-            appst.FontSize = 22;
+            appst.isBlur = false;
+            // appst.Setting = "1";
+            appst.FontSize = 20;
             appst.IsLoaded = false;
 
             Directory.CreateDirectory(myAppFolder + "\\Plug-ins");
@@ -100,15 +101,15 @@ namespace Code_Editor
             ef = new EffectBlur(this);
             ef.EnableBlur();
 
-            ResizePanels r = new ResizePanels(this);
-            r.Handler(ResizeUp, "Up");
-            r.Handler(ResizeDown, "Down");
-            r.Handler(ResizeLeft, "Left");
-            r.Handler(ResizeRight, "Right");
-            r.Handler(ResizeLeftTop, "LeftTop");
-            r.Handler(ResizeRightTop, "RightTop");
-            r.Handler(ResizeLeftDown, "LeftDown");
-            r.Handler(ResizeRightDown, "RightDown");
+            //ResizePanels r = new ResizePanels(this);
+            //r.Handler(ResizeUp, "Up");
+            //r.Handler(ResizeDown, "Down");
+            //r.Handler(ResizeLeft, "Left");
+            //r.Handler(ResizeRight, "Right");
+            //r.Handler(ResizeLeftTop, "LeftTop");
+            //r.Handler(ResizeRightTop, "RightTop");
+            //r.Handler(ResizeLeftDown, "LeftDown");
+            //r.Handler(ResizeRightDown, "RightDown");
 
             LoadData();
             sl.RestoreTreeViewState(ViewXMLTags);
@@ -310,7 +311,7 @@ namespace Code_Editor
         //==============Загрузка предыдущих вкладок и настроек==================
         void LoadData()
         {
-            sl.Load(PathFile, CreateControl, CreateTab, FontConf, SliderOpacity, SideBar, DockPanel, ContentPanel, SelectProjectButton);
+            sl.Load(PathFile, CreateControl, CreateTab, FontConf, SideBar, DockPanel, ContentPanel, SelectProjectButton, BlurToggle);
 
             if (appst.CurrentFolder ==  null)
             {
@@ -535,8 +536,32 @@ namespace Code_Editor
         }
 
 
+        private void BlurToggle_Checked(object sender, RoutedEventArgs e)
+        {
+            if (SideBar != null && DockPanel != null)
+            {
+                func.AnimateOpacity(SideBar, 0.4, null);
+                func.AnimateOpacity(DockPanel, 0.9, null);
+                ef?.EnableBlur();
+
+                if(appst != null) appst.isBlur = true;
+            }
+        }
+
+        private void BlurToggle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (SideBar != null && DockPanel != null)
+            {
+                func.AnimateOpacity(SideBar, 1, null);
+                func.AnimateOpacity(DockPanel, 1, null);
+                ef?.DisableBlur();
+
+                if (appst != null) appst.isBlur = false;
+            }
+        }
+
         //============Регулировка прозрачности======================
-        private void SliderOpacity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        /*private void SliderOpacity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (Math.Abs(SideBar.Opacity - e.NewValue) < 0.01)
                 return;
@@ -544,6 +569,9 @@ namespace Code_Editor
             if (e.NewValue >= 0.3) appst.Setting = func.AnimateOpacity(SideBar, e.NewValue, appst.Setting);
             if (e.NewValue >= 0.9) appst.Setting = func.AnimateOpacity(DockPanel, e.NewValue, appst.Setting);
             if (e.NewValue >= 0.95) appst.Setting = func.AnimateOpacity(ContentPanel, e.NewValue, appst.Setting);
+
+            if(e.NewValue <= 0.1 && ef != null) ef.DisableBlur();
+            else if(e.NewValue >= 0.1 && ef != null) ef.EnableBlur();
         }
 
         //============Кнопка регулировки прозрачности======================
@@ -567,6 +595,7 @@ namespace Code_Editor
 
             st.Begin();
         }
+        */
 
 
         private void MainGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

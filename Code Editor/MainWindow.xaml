@@ -9,6 +9,16 @@
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
                                Title="Main" Height="945" Width="1400" WindowStyle="None" AllowsTransparency="True" Background="Transparent" BorderThickness="0" WindowStartupLocation="CenterScreen" MinWidth="1058" MinHeight="697" Icon="Images/other/CodeEditor.png" Closing="Window_Closing">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="8" 
+                      CaptionHeight="12" 
+                      CornerRadius="0" 
+                      GlassFrameThickness="0" 
+                      UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+
+
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -120,6 +130,57 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+
+
+        <Style x:Key="FluentToggle" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontFamily" Value="Segoe UI Variable Text Semibold"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="backgroundBorder" Width="49" Height="25" CornerRadius="12"
+                            BorderThickness="2" BorderBrush="#8A8A8A"
+                            Background="Transparent" VerticalAlignment="Center">
+                                <Ellipse x:Name="thumb" Fill="#767676" Width="15" Height="15"
+                                 HorizontalAlignment="Left" Margin="3,0,0,0"/>
+                            </Border>
+                            <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="backgroundBorder" Property="BorderBrush" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+                                <Setter TargetName="backgroundBorder" Property="Background" Value="{DynamicResource SystemControlHighlightAccentBrush}"/>
+                                <Setter TargetName="thumb" Property="Fill" Value="White"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ThicknessAnimation Storyboard.TargetName="thumb" Storyboard.TargetProperty="Margin" 
+                                                        To="27,0,0,0" Duration="0:0:0.15"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ThicknessAnimation Storyboard.TargetName="thumb" Storyboard.TargetProperty="Margin" 
+                                                        To="3,0,0,0" Duration="0:0:0.15"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+
 
 
 
@@ -849,12 +910,12 @@ To="1" Duration="0:0:0.1" />
 
 
 
-
-            <Border x:Name="ResizeUp" Tag="resizeElement" BorderThickness="1" Height="5" VerticalAlignment="Top" Background="Transparent" Cursor="SizeNS" Margin="9,0,9,0" Grid.ColumnSpan="2"/>
-            <Border x:Name="ResizeDown" Tag="resizeElement" BorderThickness="1" Background="Transparent" Cursor="SizeNS" Margin="9,0,9,0" Height="5" VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
-            <Border x:Name="ResizeRight" Tag="resizeElement" BorderThickness="1" Background="Transparent" Cursor="SizeWE" Margin="0,8,-2,8" HorizontalAlignment="Right" Width="5" Grid.Column="1"/>
-            <Border x:Name="ResizeLeft" Tag="resizeElement" BorderThickness="1" HorizontalAlignment="Left" Width="6" Background="Transparent" Cursor="SizeWE" Margin="0,8,0,8"/>
-            <Border x:Name="ResizeLeftTop" Tag="resizeElement" BorderThickness="1" HorizontalAlignment="Left" Height="8" Margin="-3,2,0,0" VerticalAlignment="Top" Width="15" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNWSE">
+            <!--
+            <Border x:Name="ResizeUp" Tag="resizeElement" BorderThickness="1" Height="5" VerticalAlignment="Top" Background="Transparent" Cursor="SizeNS" Margin="9,0,9,0" Grid.ColumnSpan="2" Panel.ZIndex="100"/>
+            <Border x:Name="ResizeDown" Tag="resizeElement" BorderThickness="1" Background="Transparent" Cursor="SizeNS" Margin="9,0,9,0" Height="5" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Panel.ZIndex="100"/>
+            <Border x:Name="ResizeRight" Tag="resizeElement" BorderThickness="1" Background="Transparent" Cursor="SizeWE" Margin="0,8,-2,8" HorizontalAlignment="Right" Width="5" Grid.Column="1" Panel.ZIndex="100"/>
+            <Border x:Name="ResizeLeft" Tag="resizeElement" BorderThickness="1" HorizontalAlignment="Left" Width="6" Background="Transparent" Cursor="SizeWE" Margin="0,8,0,8" Panel.ZIndex="100"/>
+            <Border x:Name="ResizeLeftTop" Tag="resizeElement" BorderThickness="1" HorizontalAlignment="Left" Height="8" Margin="-3,2,0,0" VerticalAlignment="Top" Width="15" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNWSE" Panel.ZIndex="100">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -864,7 +925,7 @@ To="1" Duration="0:0:0.1" />
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
-            <Border x:Name="ResizeRightTop" Tag="resizeElement" BorderThickness="1" Height="10" Margin="0,1,1,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNESW" HorizontalAlignment="Right" Width="16" Grid.Column="1">
+            <Border x:Name="ResizeRightTop" Tag="resizeElement" BorderThickness="1" Height="10" Margin="0,1,1,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNESW" HorizontalAlignment="Right" Width="16" Grid.Column="1" Panel.ZIndex="100">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -874,7 +935,7 @@ To="1" Duration="0:0:0.1" />
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
-            <Border x:Name="ResizeLeftDown" Tag="resizeElement" BorderThickness="1" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNESW" Height="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="15">
+            <Border x:Name="ResizeLeftDown" Tag="resizeElement" BorderThickness="1" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNESW" Height="10" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="15" Panel.ZIndex="100">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -884,7 +945,7 @@ To="1" Duration="0:0:0.1" />
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
-            <Border x:Name="ResizeRightDown" Tag="resizeElement" BorderThickness="1" Margin="0,0,0,2" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNWSE" Height="9" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="15" Grid.Column="1">
+            <Border x:Name="ResizeRightDown" Tag="resizeElement" BorderThickness="1" Margin="0,0,0,2" RenderTransformOrigin="0.5,0.5" Background="Transparent" Cursor="SizeNWSE" Height="9" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="15" Grid.Column="1" Panel.ZIndex="100">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -894,12 +955,13 @@ To="1" Duration="0:0:0.1" />
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
+            -->
 
             <Border x:Name="HideBorder" BorderThickness="1.3"
             Background="Transparent" CornerRadius="12"
             Panel.ZIndex="2"
             IsHitTestVisible="False"
-            ClipToBounds="True" Margin="0,0,1,0" Grid.ColumnSpan="2" d:IsHidden="True">
+            ClipToBounds="True" Margin="0,0,1,0" Grid.ColumnSpan="2" d:IsHidden="True" Cursor="SizeNESW">
 
                 <Border.BorderBrush>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -1123,7 +1185,8 @@ To="1" Duration="0:0:0.1" />
                 <TabItem Tag="SystemTab" Height="40" Style="{StaticResource TabItemSettings}" Header="Новая вкладка" VerticalAlignment="Top" Margin="4,-1,-4,0"  Background="#FF292929" BorderBrush="#FF565656" Foreground="White" FontFamily="Segoe UI Variable Text Semibold" FontSize="16">
                     <Grid Margin="0,14,0,0">
                         <Label x:Name="SettingsSideBar" Content="Настройки" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="193" Background="{x:Null}" Foreground="#FF9A9A9A" Margin="10,0,0,0" FontSize="18" FontFamily="Segoe UI Variable Text Semibold"/>
-                        <Button x:Name="TransparentButton" Style="{DynamicResource ButtonStyle3}" Content="Прозрачность окна" Margin="22,51,0,0" FontSize="20" FontFamily="Segoe UI Variable Text Semibold" Foreground="White" HorizontalAlignment="Left" Width="218" Height="35" VerticalAlignment="Top" Click="TransparentButton_Click">
+                        <!--
+                        <Button x:Name="TransparentButton" Style="{DynamicResource ButtonStyle3}" Content="Прозрачность окна" Margin="22,51,0,0" FontSize="20" FontFamily="Segoe UI Variable Text Semibold" Foreground="White" HorizontalAlignment="Left" Width="218" Height="35" VerticalAlignment="Top" Click="TransparentButton_Click" Visibility="Hidden">
                             <Button.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                     <GradientStop Color="#FF4A4A4A" Offset="0"/>
@@ -1141,6 +1204,13 @@ To="1" Duration="0:0:0.1" />
                             </Button.Effect>
                             <Button.BorderThickness>1</Button.BorderThickness>
                         </Button>
+                        -->
+
+                        <CheckBox x:Name="BlurToggle" 
+                          Content="Включить размытие"
+                          IsChecked="False" 
+                          Checked="BlurToggle_Checked"
+                          Unchecked="BlurToggle_Unchecked" Margin="22,51,0,0" FontSize="16" FontFamily="Segoe UI Variable Text Semibold" Foreground="White" HorizontalAlignment="Left" Width="218" Height="35" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource FluentToggle}"/>
 
                         <Label Tag="ControlLabel" Margin="22,98,0,0" Content="Размер шрифта" FontSize="14" Foreground="White" HorizontalAlignment="Left" Width="114" Height="30" VerticalAlignment="Top"></Label>
                         <TextBox x:Name="FontConf" Style="{DynamicResource TextBoxStyle}" Margin="22,126,0,0" Background="#FF242424" BorderBrush="{x:Null}" Foreground="White" FontSize="20" VerticalContentAlignment="Center" Padding="15,0,0,0" HorizontalAlignment="Left" Width="218" Height="40" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
@@ -1149,6 +1219,7 @@ To="1" Duration="0:0:0.1" />
 
 
 
+                        <!--
                         <Border x:Name="OpacityBorder" Background="#FF222222" CornerRadius="12,12,12,12" BorderThickness="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF4C4C4C" HorizontalAlignment="Left" Width="250" Height="125" VerticalAlignment="Top" Margin="6,26,0,0" Visibility="Hidden">
                             <Grid>
                                 <Label Margin="57,24,57,0" Foreground="White" FontSize="18" FontFamily="Segoe UI Variable Text Semibold" Content="Прозрачность" Height="38" VerticalAlignment="Top"/>
@@ -1158,6 +1229,7 @@ To="1" Duration="0:0:0.1" />
                                 </Button>
                             </Grid>
                         </Border>
+                        -->
                     </Grid>
                 </TabItem>
 

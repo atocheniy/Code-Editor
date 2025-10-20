@@ -10,7 +10,8 @@ namespace Code_Editor.Classes
     {
         public string CurrentTheme { get; set; }
         public string CurrentFolder { get; set; }
-        public string Setting { get; set; }
+        // public string Setting { get; set; }
+        public bool isBlur {  get; set; }
         public int FontSize { get; set; }
         public bool IsLoaded { get; set; }
     }

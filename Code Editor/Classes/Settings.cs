@@ -13,7 +13,9 @@ namespace Code_Editor.Classes
         public string ResolutionHeight { get; set; }
         public string SidebarColumnWidth { get; set; }
         public string ContentColumnWidth { get; set; }
-        public string OpacityTransparent { get; set; }
+        // public string OpacityTransparent { get; set; }
+        public bool isBlur { get; set; }
+
         public int FontSize { get; set; }
         public string CurrentTheme { get; set; }
 
