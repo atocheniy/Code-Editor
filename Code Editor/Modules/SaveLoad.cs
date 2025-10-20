@@ -72,7 +72,7 @@ namespace Code_Editor.Modules
         }
 
         public void Load(Label PathFile, Action<int> CreateControl, Action<TreeView, TabControlModel, List<TabControlModel>, TabItemModel, Label, string, bool> CreateTab, 
-            TextBox FontConf, Border SideBar, Border DockPanel, Border ContentPanel, Button SelectProjectButton, CheckBox BlurToggle)
+            TextBox FontConf, Border SideBar, Border DockPanel, Border ContentPanel, Button SelectProjectButton, CheckBox BlurToggle, EffectBlur ef)
         {
             SaveTabs st = null;
 
@@ -169,6 +169,7 @@ namespace Code_Editor.Modules
                         func.AnimateOpacity(DockPanel, 0.9, null);
 
                         BlurToggle.IsChecked = true;
+                        ef?.EnableBlur();
                     }
 
                     else if (appst.isBlur == false)
@@ -177,6 +178,7 @@ namespace Code_Editor.Modules
                         func.AnimateOpacity(DockPanel, 1, null);
 
                         BlurToggle.IsChecked = false;
+                        ef?.DisableBlur();
                     }
 
                     // if (double.Parse(appst.Setting) >= 0.3) func.AnimateOpacity(SideBar, double.Parse(appst.Setting), appst.Setting);

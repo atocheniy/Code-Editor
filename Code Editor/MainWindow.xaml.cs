@@ -131,7 +131,7 @@ namespace Code_Editor
 
         private void MinWindowControl1_Click(object sender, RoutedEventArgs e) 
         {
-            this.WindowState = System.Windows.WindowState.Minimized;
+            AnimateMinimize();
         }
         private void ExitWindowControl1_Click(object sender, RoutedEventArgs e) { AnimateWindowResizeAndFade(true);}
 
@@ -161,6 +161,102 @@ namespace Code_Editor
         #region AnimationWindow
 
         private bool _isSidebarCollapsed = true;
+
+        private void AnimateMinimize()
+        {
+            var storyboard = new Storyboard();
+            Timeline.SetDesiredFrameRate(storyboard, 144);
+            ef?.DisableBlur();
+
+            var opacityAnimation = new DoubleAnimation
+            {
+                To = 0,
+                Duration = TimeSpan.FromMilliseconds(250),
+                EasingFunction = new QuarticEase { EasingMode = EasingMode.EaseIn }
+            };
+            Storyboard.SetTarget(opacityAnimation, this);
+            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(Window.OpacityProperty));
+            storyboard.Children.Add(opacityAnimation);
+
+            var scaleXAnimation = new DoubleAnimation
+            {
+                To = 0.8,
+                Duration = TimeSpan.FromMilliseconds(250),
+                EasingFunction = new QuarticEase { EasingMode = EasingMode.EaseIn }
+            };
+            Storyboard.SetTarget(scaleXAnimation, this);
+            Storyboard.SetTargetProperty(scaleXAnimation, new PropertyPath("RenderTransform.(ScaleTransform.ScaleX)"));
+            storyboard.Children.Add(scaleXAnimation);
+
+            var scaleYAnimation = new DoubleAnimation
+            {
+                To = 0.8,
+                Duration = TimeSpan.FromMilliseconds(250),
+                EasingFunction = new QuarticEase { EasingMode = EasingMode.EaseIn }
+            };
+            Storyboard.SetTarget(scaleYAnimation, this);
+            Storyboard.SetTargetProperty(scaleYAnimation, new PropertyPath("RenderTransform.(ScaleTransform.ScaleY)"));
+            storyboard.Children.Add(scaleYAnimation);
+
+            storyboard.Completed += (s, ev) =>
+            {
+                this.WindowState = System.Windows.WindowState.Minimized;
+            };
+
+            storyboard.Begin();
+        }
+
+        private void AnimateRestore()
+        {
+            this.Opacity = 0;
+            ef?.EnableBlur();
+            (this.RenderTransform as ScaleTransform).ScaleX = 0.8;
+            (this.RenderTransform as ScaleTransform).ScaleY = 0.8;
+
+            var storyboard = new Storyboard();
+            Timeline.SetDesiredFrameRate(storyboard, 144);
+
+            var opacityAnimation = new DoubleAnimation
+            {
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(250),
+                EasingFunction = new QuarticEase { EasingMode = EasingMode.EaseOut }
+            };
+            Storyboard.SetTarget(opacityAnimation, this);
+            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(Window.OpacityProperty));
+            storyboard.Children.Add(opacityAnimation);
+
+            var scaleXAnimation = new DoubleAnimation
+            {
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(250),
+                EasingFunction = new QuarticEase { EasingMode = EasingMode.EaseOut }
+            };
+            Storyboard.SetTarget(scaleXAnimation, this);
+            Storyboard.SetTargetProperty(scaleXAnimation, new PropertyPath("RenderTransform.(ScaleTransform.ScaleX)"));
+            storyboard.Children.Add(scaleXAnimation);
+
+            var scaleYAnimation = new DoubleAnimation
+            {
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(250),
+                EasingFunction = new QuarticEase { EasingMode = EasingMode.EaseOut }
+            };
+            Storyboard.SetTarget(scaleYAnimation, this);
+            Storyboard.SetTargetProperty(scaleYAnimation, new PropertyPath("RenderTransform.(ScaleTransform.ScaleY)"));
+            storyboard.Children.Add(scaleYAnimation);
+
+            storyboard.Begin();
+        }
+
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Normal)
+            {
+                AnimateRestore();
+            }
+        }
 
         private void AnimateSidebar(bool collapse)
         {
@@ -195,13 +291,14 @@ namespace Code_Editor
             ef.DisableBlur();
 
             var storyboard = new Storyboard();
+            Timeline.SetDesiredFrameRate(storyboard, 144);
             TimeSpan totalDuration = TimeSpan.FromSeconds(0.6);
 
             var opacityAnimation = new DoubleAnimation
             {
                 From = 1,
                 To = 0,
-                Duration = TimeSpan.FromSeconds(0.2)
+                Duration = TimeSpan.FromSeconds(0.3)
             };
             Storyboard.SetTarget(opacityAnimation, MainGrid);
             Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath("Opacity"));
@@ -215,7 +312,7 @@ namespace Code_Editor
             //scaleXAnimation.KeyFrames.Add(new SplineDoubleKeyFrame(1.05, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.25)),
             //    new KeySpline(0.5, 0, 0.5, 1)));
 
-            scaleXAnimation.KeyFrames.Add(new SplineDoubleKeyFrame(0, KeyTime.FromTimeSpan(totalDuration),
+            scaleXAnimation.KeyFrames.Add(new SplineDoubleKeyFrame(0.8, KeyTime.FromTimeSpan(totalDuration),
                 new KeySpline(0.5, 0, 0.5, 1)));
             storyboard.Children.Add(scaleXAnimation);
 
@@ -226,7 +323,7 @@ namespace Code_Editor
             scaleYAnimation.KeyFrames.Add(new DiscreteDoubleKeyFrame(1, KeyTime.FromTimeSpan(TimeSpan.Zero)));
             //scaleYAnimation.KeyFrames.Add(new SplineDoubleKeyFrame(1.05, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.25)),
             //    new KeySpline(0.5, 0, 0.5, 1)));
-            scaleYAnimation.KeyFrames.Add(new SplineDoubleKeyFrame(0, KeyTime.FromTimeSpan(totalDuration),
+            scaleYAnimation.KeyFrames.Add(new SplineDoubleKeyFrame(0.8, KeyTime.FromTimeSpan(totalDuration),
                 new KeySpline(0.5, 0, 0.5, 1)));
             storyboard.Children.Add(scaleYAnimation);
 
@@ -248,6 +345,7 @@ namespace Code_Editor
             MainGrid.RenderTransform = scaleTransform;
 
             var storyboard = new Storyboard();
+            Timeline.SetDesiredFrameRate(storyboard, 144);
 
 
             TimeSpan totalDuration = TimeSpan.FromSeconds(0.6);
@@ -311,7 +409,7 @@ namespace Code_Editor
         //==============Загрузка предыдущих вкладок и настроек==================
         void LoadData()
         {
-            sl.Load(PathFile, CreateControl, CreateTab, FontConf, SideBar, DockPanel, ContentPanel, SelectProjectButton, BlurToggle);
+            sl.Load(PathFile, CreateControl, CreateTab, FontConf, SideBar, DockPanel, ContentPanel, SelectProjectButton, BlurToggle, ef);
 
             if (appst.CurrentFolder ==  null)
             {

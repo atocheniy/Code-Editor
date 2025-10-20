@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Code_Editor"
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-                               Title="Main" Height="945" Width="1400" WindowStyle="None" AllowsTransparency="True" Background="Transparent" BorderThickness="0" WindowStartupLocation="CenterScreen" MinWidth="1058" MinHeight="697" Icon="Images/other/CodeEditor.png" Closing="Window_Closing">
+                               Title="Main" StateChanged="Window_StateChanged" Height="945" Width="1400" WindowStyle="None" AllowsTransparency="True" Background="Transparent" BorderThickness="0" WindowStartupLocation="CenterScreen" MinWidth="1058" MinHeight="697" Icon="Images/other/CodeEditor.png" Closing="Window_Closing">
 
     <WindowChrome.WindowChrome>
         <WindowChrome ResizeBorderThickness="8" 
@@ -17,6 +17,11 @@
                       GlassFrameThickness="0" 
                       UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
+
+    <Window.RenderTransform>
+        <ScaleTransform ScaleX="1" ScaleY="1"/>
+    </Window.RenderTransform>
+    <Window.RenderTransformOrigin>0.5,0.5</Window.RenderTransformOrigin>
 
 
     <Window.Resources>
@@ -982,8 +987,8 @@ To="1" Duration="0:0:0.1" />
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
                                     <Grid>
-                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,6,3,-6" Background="#801D1D1D" Opacity="0.4"/>
-                                        <Image Source="Images/icons/files_icon_184974_negate.png" Margin="8,13,6,1"/>
+                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,3,3,-1" Background="#801D1D1D" Opacity="0.4"/>
+                                        <Image Source="Images/icons/files_icon_184974_negate.png" Margin="10,10,5,4"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
@@ -1004,8 +1009,8 @@ To="1" Duration="0:0:0.1" />
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
                                     <Grid>
-                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,6,3,-6" Background="#801D1D1D" Opacity="0.4"/>
-                                        <Image Source="Images/icons/searcher_magnifyng_glass_search_locate_find_icon_123813_negate.png" Margin="8,13,5,1"/>
+                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,3,3,-1" Background="#801D1D1D" Opacity="0.4"/>
+                                        <Image Source="Images/icons/searcher_magnifyng_glass_search_locate_find_icon_123813_negate.png" Margin="10,10,5,4"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
@@ -1026,8 +1031,8 @@ To="1" Duration="0:0:0.1" />
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
                                     <Grid>
-                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,6,3,-6" Background="#801D1D1D" Opacity="0.4"/>
-                                        <Image Source="Images/icons/gear_icon_184947_negate.png" Margin="10,13,5,1"/>
+                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,3,3,-1" Background="#801D1D1D" Opacity="0.4"/>
+                                        <Image Source="Images/icons/gear_icon_184947_negate.png" Margin="10,10,5,4"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
@@ -1048,8 +1053,8 @@ To="1" Duration="0:0:0.1" />
                             <Setter.Value>
                                 <ControlTemplate TargetType="TabItem">
                                     <Grid>
-                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,6,3,-6" Background="#801D1D1D" Opacity="0.4"/>
-                                        <Image Source="/Images/icons/chatgpt_logo_openai_gpt_ia_line_icon_264985_negate.png" Margin="10,13,5,1"/>
+                                        <Border Name="Border" BorderThickness="1,1,1,1" Width="40" BorderBrush="#FF2E2E2E" CornerRadius="8,8,8,8" Margin="8,3,3,-1" Background="#801D1D1D" Opacity="0.4"/>
+                                        <Image Source="/Images/icons/chatgpt_logo_openai_gpt_ia_line_icon_264985_negate.png" Margin="10,10,5,4"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
