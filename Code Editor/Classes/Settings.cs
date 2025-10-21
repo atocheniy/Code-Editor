@@ -16,6 +16,8 @@ namespace Code_Editor.Classes
         // public string OpacityTransparent { get; set; }
         public bool isBlur { get; set; }
 
+        public bool isExpandedSidebar { get; set; }
+
         public int FontSize { get; set; }
         public string CurrentTheme { get; set; }
 

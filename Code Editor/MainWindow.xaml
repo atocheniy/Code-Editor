@@ -845,17 +845,17 @@ To="1" Duration="0:0:0.1" />
                             <Grid Width="800" Height="600">
                                 <Image Tag="FirstImage" Source="/Images/other/code_optimization_icon_iconscom_53810_negate.png" Opacity="0.1" Margin="264,59,287,353"/>
                                 <TextBlock x:Name="TextStart" TextWrapping="Wrap" TextAlignment="Center" Text="Создайте или откройте проект для работы с кодом" Foreground="#19FFFFFF" FontFamily="Segoe UI Variable Text Semibold" FontSize="30" Margin="10,268,40,121"/>
-                                <Button Tag="BlueButton" Style="{DynamicResource ButtonStyle4}" Content="Открыть папку" Margin="291,0,0,216" FontSize="20" FontFamily="Segoe UI Variable Text Semibold" Foreground="White" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="188" Click="Button_Click_1">
+                                <Button Tag="BlueButton" Style="{DynamicResource ButtonStyle2}" Content="Открыть папку" Margin="291,0,0,216" FontSize="20" FontFamily="Segoe UI Variable Text Semibold" Foreground="White" Height="38" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="188" Click="Button_Click_1">
                                     <Button.Background>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                            <GradientStop Color="#7F1C6BDE" Offset="0"/>
-                                            <GradientStop Color="#7F1C6BDE" Offset="1"/>
+                                            <GradientStop Color="#FF1C6BDE" Offset="0"/>
+                                            <GradientStop Color="#FF1C6BDE" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Button.Background>
                                     <Button.BorderBrush>
                                         <LinearGradientBrush EndPoint="0.5,5" StartPoint="0.5,0" SpreadMethod="Pad" MappingMode="Absolute">
-                                            <GradientStop Color="#FF305994"/>
-                                            <GradientStop Color="#7F1C6BDE" Offset="1"/>
+                                            <GradientStop Color="#FF498CEE"/>
+                                            <GradientStop Color="#FF1B67D6" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Button.BorderBrush>
                                     <Button.Effect>

@@ -326,6 +326,10 @@ namespace Code_Editor.Modules
 
                     tx.ShowLineNumbers = true;
 
+                    //tx.Options.ShowSpaces = true;
+                    //tx.Options.ShowTabs = true;
+
+                    //tx.Options.ShowIndentGuides = true;
 
                     var indentGuideLinesRenderer = new IndentGuideLinesRenderer(tx);
                     tx.TextArea.TextView.BackgroundRenderers.Add(indentGuideLinesRenderer);
@@ -753,6 +757,14 @@ namespace Code_Editor.Modules
         private ScrollViewer scrollViewer;
         private TextEditor editor;
 
+        // Reusable pens to avoid allocations per line
+        private Pen dottedPen;
+        private Pen dottedPenMajor;
+
+        // Throttle InvalidateVisual calls to avoid flooding during fast scroll
+        private DateTime _lastInvalidate = DateTime.MinValue;
+        private readonly TimeSpan InvalidateThrottle = TimeSpan.FromMilliseconds(16); // ~60 FPS
+
         public IndentGuideLinesRenderer(TextEditor editor)
         {
             this.editor = editor;
@@ -769,19 +781,66 @@ namespace Code_Editor.Modules
 
         public void Draw(TextView textView, DrawingContext drawingContext)
         {
+            if (textView.VisualLines.Count == 0)
+                return;
+
+            // Cache pixel size for this draw call
             Size pixelSize = PixelSnapHelpers.GetPixelSize(editor);
+
+            // Ensure visual lines are prepared
             textView.EnsureVisualLines();
+
+            // Lazily create and freeze pens for reuse
+            if (dottedPen == null)
+            {
+                dottedPen = new Pen(Brushes.Gray,1)
+                {
+                    DashStyle = DashStyles.Dot,
+                    StartLineCap = PenLineCap.Square,
+                    EndLineCap = PenLineCap.Square,
+                    LineJoin = PenLineJoin.Miter
+                };
+                if (dottedPen.CanFreeze) dottedPen.Freeze();
+            }
+            if (dottedPenMajor == null)
+            {
+                dottedPenMajor = new Pen(Brushes.Gray,1)
+                {
+                    DashStyle = DashStyles.Dot,
+                    StartLineCap = PenLineCap.Square,
+                    EndLineCap = PenLineCap.Square,
+                    LineJoin = PenLineJoin.Miter
+                };
+                if (dottedPenMajor.CanFreeze) dottedPenMajor.Freeze();
+            }
+
+            // Global cache for X positions for indentation levels for this Draw
+            var posXCacheGlobal = new Dictionary<int, double>();
 
             foreach (var visualLine in textView.VisualLines)
             {
                 var line = editor.Document.GetLineByNumber(visualLine.FirstDocumentLine.LineNumber);
-                var text = editor.Document.GetText(line);
-                var indentation = 0;
 
-                int tabSize = editor.Options.IndentationSize; 
+                int indentation =0;
 
-                foreach (var c in text)
+                int tabSize = editor.Options.IndentationSize;
+
+                // Iterate characters by offset to avoid allocating the full line text
+                int startOffset = line.Offset;
+                int endOffset = line.EndOffset; // exclusive
+
+                for (int offset = startOffset; offset < endOffset; offset++)
                 {
+                    char c;
+                    try
+                    {
+                        c = editor.Document.GetCharAt(offset);
+                    }
+                    catch
+                    {
+                        break; // safety
+                    }
+
                     if (c == ' ')
                     {
                         indentation++;
@@ -795,30 +854,28 @@ namespace Code_Editor.Modules
                         break;
                     }
 
-                    if (indentation >= 2 && (indentation - 2) % 4 == 0)
+                    if (indentation >=2 && (indentation -2) %4 ==0)
                     {
-                        double scrollOffsetX = textView.ScrollOffset.X;
-
-                        var startX = textView.GetVisualPosition(
-                            new TextViewPosition(line.LineNumber, indentation),
-                            VisualYPosition.TextTop
-                        ).X - scrollOffsetX - 5;
+                        // compute or reuse X position for this indentation (global per Draw)
+                        if (!posXCacheGlobal.TryGetValue(indentation, out double startX))
+                        {
+                            // Use current visualLine's line number to compute a representative X for the column
+                            var pos = textView.GetVisualPosition(new TextViewPosition(line.LineNumber, indentation), VisualYPosition.TextTop);
+                            double scrollOffsetX = textView.ScrollOffset.X;
+                            startX = pos.X - scrollOffsetX -5;
+                            posXCacheGlobal[indentation] = startX;
+                        }
 
                         var startY = visualLine.GetTextLineVisualYPosition(visualLine.TextLines[0], VisualYPosition.LineTop) - editor.VerticalOffset;
                         var endY = visualLine.GetTextLineVisualYPosition(visualLine.TextLines[0], VisualYPosition.LineBottom) - editor.VerticalOffset;
 
-                        Pen dottedPen = new Pen(Brushes.Gray, 1)
-                        {
-                            DashStyle = DashStyles.Dot,
-                            StartLineCap = PenLineCap.Square,
-                            EndLineCap = PenLineCap.Square,
-                            LineJoin = PenLineJoin.Miter
-                        };
+                        // choose pen (major marker for every8)
+                        var penToUse = IsDivisibleByMultipleOf(indentation,8) ? dottedPenMajor : dottedPen;
 
-                        if (IsDivisibleByMultipleOf(indentation, 8))
-                            drawingContext.DrawLine(dottedPen, new System.Windows.Point(startX - pixelSize.Width / 2, startY + pixelSize.Height / 2), new System.Windows.Point(startX - pixelSize.Width / 2, endY + pixelSize.Height / 2));
+                        if (IsDivisibleByMultipleOf(indentation,8))
+                            drawingContext.DrawLine(penToUse, new System.Windows.Point(startX - pixelSize.Width /2, startY + pixelSize.Height /2), new System.Windows.Point(startX - pixelSize.Width /2, endY + pixelSize.Height /2));
                         else
-                            drawingContext.DrawLine(dottedPen, new System.Windows.Point(startX, startY), new System.Windows.Point(startX, endY));
+                            drawingContext.DrawLine(penToUse, new System.Windows.Point(startX, startY), new System.Windows.Point(startX, endY));
                     }
                 }
             }
@@ -827,7 +884,8 @@ namespace Code_Editor.Modules
         // Helper method to find a child of a specified type in the visual tree
         private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            if (parent == null) return null;
+            for (int i =0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
                 DependencyObject child = VisualTreeHelper.GetChild(parent, i);
                 if (child is T typedChild)
@@ -849,11 +907,18 @@ namespace Code_Editor.Modules
         // Function to check if a number is divisible by a multiple of another number
         private bool IsDivisibleByMultipleOf(int number, int multiple)
         {
-            return number % multiple == 0;
+            return number % multiple ==0;
         }
 
         private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
         {
+            // Throttle calls to InvalidateVisual to avoid flooding the UI thread on fast scroll
+            var now = DateTime.UtcNow;
+            if (now - _lastInvalidate < InvalidateThrottle)
+                return;
+
+            _lastInvalidate = now;
+
             // Calls the InvalidateVisual method to refresh the vertical guide lines on scroll
             editor.TextArea.TextView.InvalidateVisual();
         }

@@ -47,6 +47,7 @@ namespace Code_Editor
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    /// firstTab
     public partial class MainWindow : Window
     {
         //-----------------Modules----------------
@@ -86,11 +87,13 @@ namespace Code_Editor
             }
             Directory.CreateDirectory(myAppFolder);
             appst.CurrentTheme = "dark";
-            appst.CurrentFolder = "";
+            appst.CurrentFolder = null;
             appst.isBlur = false;
+            appst.isExpandedSidebar = true;
             // appst.Setting = "1";
             appst.FontSize = 20;
             appst.IsLoaded = false;
+            
 
             Directory.CreateDirectory(myAppFolder + "\\Plug-ins");
 
@@ -99,7 +102,7 @@ namespace Code_Editor
             sl = new SaveLoad(this, ViewXMLTags, MainGrid, appst, tabCModels, tvp);
 
             ef = new EffectBlur(this);
-            ef.EnableBlur();
+            // ef.EnableBlur();
 
             //ResizePanels r = new ResizePanels(this);
             //r.Handler(ResizeUp, "Up");
@@ -209,7 +212,7 @@ namespace Code_Editor
         private void AnimateRestore()
         {
             this.Opacity = 0;
-            ef?.EnableBlur();
+            if (appst.isBlur)  ef?.EnableBlur();
             (this.RenderTransform as ScaleTransform).ScaleX = 0.8;
             (this.RenderTransform as ScaleTransform).ScaleY = 0.8;
 
@@ -284,11 +287,12 @@ namespace Code_Editor
         {
             AnimateSidebar(_isSidebarCollapsed);
             _isSidebarCollapsed = !_isSidebarCollapsed;
+            appst.isExpandedSidebar = !appst.isExpandedSidebar;
         }
 
         private void AnimateWindowResizeAndFade(bool isShrinking)
         {
-            ef.DisableBlur();
+            if (appst.isBlur) ef.DisableBlur();
 
             var storyboard = new Storyboard();
             Timeline.SetDesiredFrameRate(storyboard, 144);
@@ -393,7 +397,7 @@ namespace Code_Editor
 
             storyboard.Completed += (s, ev) =>
             {
-                ef.EnableBlur();
+                if(appst.isBlur) ef.EnableBlur();
             };
             storyboard.Begin();
         }
@@ -409,7 +413,7 @@ namespace Code_Editor
         //==============Загрузка предыдущих вкладок и настроек==================
         void LoadData()
         {
-            sl.Load(PathFile, CreateControl, CreateTab, FontConf, SideBar, DockPanel, ContentPanel, SelectProjectButton, BlurToggle, ef);
+            sl.Load(PathFile, CreateControl, CreateTab, FontConf, SideBar, DockPanel, ContentPanel, SelectProjectButton, BlurToggle, ef, wrap_panel);
 
             if (appst.CurrentFolder ==  null)
             {
@@ -421,6 +425,7 @@ namespace Code_Editor
                 SplitButton.Visibility = Visibility.Hidden;
                 firstTab.Visibility = Visibility.Visible;
             }
+            if (appst.isExpandedSidebar == false) _isSidebarCollapsed = !_isSidebarCollapsed;
         }
 
 
@@ -429,13 +434,16 @@ namespace Code_Editor
         {
             sl.Load_Button(SelectProjectButton, gridcol, DeleteMainBorder);
 
-            PathFile.Content = "";
-            CloseProjectButton.Visibility = Visibility.Visible;
-            SaveButton.Visibility = Visibility.Visible;
-            UndoB.Visibility = Visibility.Visible;
-            RedoB.Visibility = Visibility.Visible;
-            SplitButton.Visibility = Visibility.Visible;
-            firstTab.Visibility = Visibility.Hidden;
+            if (appst.CurrentFolder != null)
+            {
+                PathFile.Content = "";
+                CloseProjectButton.Visibility = Visibility.Visible;
+                SaveButton.Visibility = Visibility.Visible;
+                UndoB.Visibility = Visibility.Visible;
+                RedoB.Visibility = Visibility.Visible;
+                SplitButton.Visibility = Visibility.Visible;
+                firstTab.Visibility = Visibility.Hidden;
+            }
         }
 
 
@@ -1398,6 +1406,7 @@ namespace Code_Editor
             storyboard.Begin();
 
             ToggleSidebar();
+            //
         }
 
         //=================Create Message===================

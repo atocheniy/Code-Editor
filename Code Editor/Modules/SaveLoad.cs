@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Xml.Serialization;
 using static System.Windows.Forms.AxHost;
 
@@ -65,6 +66,7 @@ namespace Code_Editor.Modules
             s.SidebarColumnWidth = MainGrid.ColumnDefinitions[0].Width.Value.ToString();
             s.ContentColumnWidth = MainGrid.ColumnDefinitions[1].Width.IsStar ? MainGrid.ColumnDefinitions[1].Width.Value.ToString() + "*" : MainGrid.ColumnDefinitions[1].Width.Value.ToString();
             s.isBlur = appst.isBlur;
+            s.isExpandedSidebar = appst.isExpandedSidebar;
             s.FontSize = appst.FontSize;
             s.CurrentTheme = appst.CurrentTheme;
 
@@ -72,7 +74,7 @@ namespace Code_Editor.Modules
         }
 
         public void Load(Label PathFile, Action<int> CreateControl, Action<TreeView, TabControlModel, List<TabControlModel>, TabItemModel, Label, string, bool> CreateTab, 
-            TextBox FontConf, Border SideBar, Border DockPanel, Border ContentPanel, Button SelectProjectButton, CheckBox BlurToggle, EffectBlur ef)
+            TextBox FontConf, Border SideBar, Border DockPanel, Border ContentPanel, Button SelectProjectButton, CheckBox BlurToggle, EffectBlur ef, WrapPanel wrap_panel)
         {
             SaveTabs st = null;
 
@@ -161,7 +163,32 @@ namespace Code_Editor.Modules
                     }
 
                     appst.isBlur = s.isBlur;
+                    appst.isExpandedSidebar = s.isExpandedSidebar;
                     // SliderOpacity.Value = double.Parse(appst.Setting);
+
+                    if(appst.isExpandedSidebar == true)
+                    {
+                        var translateTransform = new TranslateTransform(0, 0);
+                        var transformGroup = new TransformGroup();
+                        transformGroup.Children.Add(translateTransform);
+                        wrap_panel.RenderTransform = transformGroup;
+                        wrap_panel.RenderTransformOrigin = new Point(0.5, 0.5);
+
+                        var transform = (wrap_panel.RenderTransform as TransformGroup).Children[0] as TranslateTransform;
+                        transform.X = 0;
+                    }
+
+                    else if (appst.isExpandedSidebar == false)
+                    {
+                        var translateTransform = new TranslateTransform(0, 0);
+                        var transformGroup = new TransformGroup();
+                        transformGroup.Children.Add(translateTransform);
+                        wrap_panel.RenderTransform = transformGroup;
+                        wrap_panel.RenderTransformOrigin = new Point(0.5, 0.5);
+
+                        var transform = (wrap_panel.RenderTransform as TransformGroup).Children[0] as TranslateTransform;
+                        transform.X = 60;
+                    }
 
                     if (appst.isBlur == true)
                     {
